@@ -108,7 +108,7 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     func updateUIWithWeatherData() {
         
         cityLabel.text = weatherDataModel.city
-        temperatureLabel.text = String(weatherDataModel.temperature)
+        temperatureLabel.text = String(weatherDataModel.temperature) + "°"
         weatherIcon.image = UIImage(named: weatherDataModel.weatherIconName)
         
     }
@@ -144,7 +144,6 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     //Write the didFailWithError method here:
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print(error)
         cityLabel.text = "Location Unavailable"
     }
     
@@ -157,7 +156,9 @@ class WeatherViewController: UIViewController, CLLocationManagerDelegate, Change
     //Write the userEnteredANewCityName Delegate method here:
     
     func userEnteredANewCityName(city: String) {
-        print(city)
+        let params : [String : String] = ["q" : city, "appid" : APP_ID]
+        
+        getWeatherData(url: WEATHER_URL, parameters: params)
     }
     
     //Write the PrepareForSegue Method here
